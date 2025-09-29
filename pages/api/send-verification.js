@@ -1,5 +1,5 @@
 // pages/api/send-verification.js
-import nodemailer from 'nodemailer';
+import * as nodemailer from 'nodemailer'; // ✅ Fixed import
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
@@ -20,13 +20,13 @@ export default async function handler(req, res) {
   const verifyLink = `https://thebiolink.lol/verify?id=${encodeURIComponent(id)}`;
 
   try {
-    const transporter = nodemailer.createTransporter({
+    const transporter = nodemailer.createTransport({
       host: 'smtp.gmail.com',
       port: 587,
       secure: false,
       auth: {
-        user: process.env.EMAIL,        // e.g., yourname@gmail.com
-        pass: process.env.APP_PASSWORD, // 16-char Gmail App Password
+        user: process.env.EMAIL,
+        pass: process.env.APP_PASSWORD,
       },
     });
 
